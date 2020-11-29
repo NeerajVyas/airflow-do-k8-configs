@@ -45,7 +45,7 @@ spec:
         # ssh examples ssh://git@github.com/apache/airflow.git
         # git@github.com:apache/airflow.git
         # https example: https://github.com/apache/airflow.git
-        repo: https://github.com/NeerajVyas/airflow-dags.git
+        repo: git@github.com:NeerajVyas/airflow-dags.git
         branch: master
         rev: HEAD
         root: "/git"
@@ -57,6 +57,7 @@ spec:
         # should be "" if dags are at repo root
         #in your git path we can specify the dags folder ex: RS-ETL/ETL-INGEST/airflow/dags
         subPath: ""
+        sshKeySecret: airflow-git-private-dags
         # if your repo needs a user name password
         # you can load them to a k8s secret like the one below
         #   ---
