@@ -1,0 +1,28 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: airflow-elb-web
+  annotations:
+    service.beta.kubernetes.io/do-loadbalancer-protocol: "http"
+    service.beta.kubernetes.io/do-loadbalancer-algorithm: "least_connections"
+    service.beta.kubernetes.io/do-loadbalancer-tls-ports: "443"
+    service.beta.kubernetes.io/do-loadbalancer-certificate-id: "44a05490-cf87-4aec-922a-538eada2ad58"
+    service.beta.kubernetes.io/do-loadbalancer-redirect-http-to-https: "true"
+    # service.beta.kubernetes.io/do-loadbalancer-enable-proxy-protocol: "true"
+    service.beta.kubernetes.io/do-loadbalancer-enable-backend-keepalive: "true"
+    service.beta.kubernetes.io/do-loadbalancer-hostname: "airflow.foakprod.com"
+  namespace: dev
+  labels:
+    component: webserver
+    release: airflow-dev
+  annotations:
+spec:
+  selector:
+    component: webserver
+    release: airflow-dev
+  ports:
+    - name: web
+      protocol: TCP
+      port: 8080
+      targetPort: 8080
+  type: LoadBalancer
